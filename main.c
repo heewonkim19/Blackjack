@@ -34,16 +34,23 @@ int gameEnd = 0; 							//game end flag
 
 //calculate the actual card number in the blackjack game
 int getCardNum(int cardnum) {
+
+	int input;  
+	if (cardnum <= 9)
+		input = cardnum + 1;
+	else if (cardnum >= 13 && cardnum <= 22)
+		input = cardnum % 12;
+	else if (cardnum >= 26 && cardnum <= 35)
+		input = cardnum % 25;
+	else if (cardnum >= 39 && cardnum <= 48)
+		input = cardnum %38;
+	else 
+		input = 10;
 	
-	int T_Card[N_CARD]={
-		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 
-		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10,
-		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10,
-		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10
-	};
-	
-	return T_Card[cardnum];
+	return input;
+
 }
+
 //print the card information (e.g. DiaA)
 void printCard(int cardnum) {
 	switch (cardnum)
@@ -120,7 +127,7 @@ void printCard(int cardnum) {
 		else if (cardnum==38)
 			printf("Spade K");
 		else
-			printf("Spade %d",(cardnum%12)-1);
+			printf("Spade %d", cardnum%25);
 		break;
 		
 		case 39:
@@ -145,10 +152,34 @@ void printCard(int cardnum) {
 		else if (cardnum==51)
 			printf("Club K");
 		else
-			printf("Club %d",(cardnum%12)-2);
+			printf("Club %d", cardnum%38);
 		break;	
 		}	
 }
+
+//card array controllers -------------------------------------------------------------------------------------------------------------------------------------- 
+//mix the card sets and put in the array
+void mixCardTray(void) {
+
+	int i, j;
+	int temp;
+	
+	for (i=0; i<N_CARDSET*N_CARD; i++)
+	{
+		CardTray[i]=i;
+	}
+	
+	for (j=0; j<N_CARDSET*N_CARD; j++)
+	{
+		int k = rand()%(N_CARDSET*N_CARD);
+		temp = CardTray[j];
+		CardTray[j] = CardTray[k];
+		CardTray[k] = temp;
+	}
+}
+
+
+
 
 int main(int argc, char *argv[]) {
 	
