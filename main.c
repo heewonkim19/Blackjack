@@ -216,7 +216,7 @@ int pullCard(void) {
 }
 
 
-//Playing game functions -----------------------------
+//Playing game functions -------------------------------------------------------------------------------------------------------------------------------------
 
 //Player settiing
 int configUser(void) {
